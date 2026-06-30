@@ -1,0 +1,9 @@
+Metadata-Version: 2.4
+Name: lg-code-mwe
+Version: 0.1.0
+Requires-Python: >=3.10
+Requires-Dist: langgraph
+Requires-Dist: langchain-core
+Requires-Dist: langchain-openai
+Requires-Dist: python-dotenv
+Requires-Dist: pytest

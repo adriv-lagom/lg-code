@@ -1,0 +1,10 @@
+{
+  "dependencies": ["."],
+  "graphs": {
+    "coding_agent": "./src/code_graph/agent.py:graph",
+    "supervisor_worker": "./src/code_graph/sw_agent.py:graph",
+    "julia_agent": "./src/code_graph/julia_agent.py:graph",
+    "node_red_agent": "./src/code_graph/node_red_agent.py:graph"
+  },
+  "env": ".env"
+}

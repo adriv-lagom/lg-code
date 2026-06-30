@@ -1,0 +1,8 @@
+__pycache__/
+.venv/
+workspace/
+.agent_notes/
+.langgraph_api/
+.pytest_cache/
+.env
+*.pyc
