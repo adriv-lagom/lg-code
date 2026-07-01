@@ -114,24 +114,27 @@ Everything else is in git and shared.
 
 ```bash
 source .venv/bin/activate
-langgraph dev --port 2024 --no-reload
+# Use your Tailscale hostname (not 0.0.0.0!) so the Studio URL is correct:
+langgraph dev --host $(hostname).tail9c372e.ts.net --port 2024 --no-reload
 
 # Detached (survives terminal close):
-nohup .venv/bin/langgraph dev --host 0.0.0.0 --port 2024 --no-reload > langgraph.log 2>&1 &
+nohup .venv/bin/langgraph dev --host $(hostname).tail9c372e.ts.net --port 2024 --no-reload > langgraph.log 2>&1 &
 ```
+
+> **Important**: Do NOT use `--host 0.0.0.0`. The LangGraph Studio browser UI uses the `--host` value as the `baseUrl` to connect back to the server. Your browser can't resolve `0.0.0.0`. Use your machine's Tailscale Magic DNS name instead.
 
 ## Accessing the Studio UI
 
-The LangGraph Studio runs in your browser and connects via the tailnet:
+The LangGraph Studio runs in your browser and connects via the tailnet. Replace `<hostname>` with your agent host's Tailscale name:
 
 ```
-https://smith.langchain.com/studio/?baseUrl=http://les-hub.tail9c372e.ts.net:2024
+https://smith.langchain.com/studio/?baseUrl=http://<hostname>.tail9c372e.ts.net:2024
 ```
 
-Or tunnel locally if you prefer:
+You can also reach the API directly:
+
 ```bash
-ssh -L 2024:localhost:2024 les-hub
-# open http://localhost:2024
+curl http://<hostname>.tail9c372e.ts.net:2024/ok
 ```
 
 ## vLLM management
@@ -164,8 +167,8 @@ git add -A && git commit -m "..." && git push
 cd ~/lg-code
 git pull
 # Kill old process and restart:
-pkill -f "langgraph dev"
-nohup .venv/bin/langgraph dev --host 0.0.0.0 --port 2024 --no-reload > langgraph.log 2>&1 &
+pkill -f '.venv/bin/langgraph' 2>/dev/null
+nohup .venv/bin/langgraph dev --host les-hub.tail9c372e.ts.net --port 2024 --no-reload > langgraph.log 2>&1 &
 ```
 
 ## Running tests
